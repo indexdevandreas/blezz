@@ -1,0 +1,90 @@
+/* --- CUSTOM STYLES FOR BLEZZBARBER (KLUTCH VIBE) --- */
+
+/* Gjør smooth scroll mykere */
+html {
+    scroll-behavior: smooth;
+}
+
+/* MARQUEE ANIMASJON (Rullebåndet i bunn av hero) */
+.marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    padding-left: 100%; /* Start fra høyre */
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* REVIEWS MARQUEE STYLES */
+.reviews-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fading på sidene av reviews */
+.reviews-wrapper::before,
+.reviews-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.reviews-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #050505, transparent);
+}
+.reviews-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #050505, transparent);
+}
+
+.reviews-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scrollReviews 80s linear infinite; /* Sakte tempo for lesbarhet */
+}
+
+.reviews-track:hover {
+    animation-play-state: paused;
+}
+
+.review-card {
+    width: 320px;
+    background: #111;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+    transition: border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card:hover {
+    border-color: #EDBE47;
+}
+
+@keyframes scrollReviews {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Fjerne standard outline på knapper */
+button:focus, a:focus {
+    outline: 2px solid #EDBE47;
+    outline-offset: 2px;
+}
+
+/* Grayscale hover effekt fix */
+.grayscale {
+    filter: grayscale(100%);
+}
+.grayscale:hover {
+    filter: grayscale(0%);
+}
