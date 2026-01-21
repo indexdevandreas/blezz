@@ -1,54 +1,38 @@
-/* --- CUSTOM STYLES FOR BLEZZBARBER (KLUTCH VIBE) --- */
+/* --- CUSTOM STYLES FOR BLEZZBARBER --- */
 
-/* Gjør smooth scroll mykere */
 html {
     scroll-behavior: smooth;
 }
 
-/* MARQUEE ANIMASJON (Rullebåndet i bunn av hero) */
+/* MARQUEE ANIMASJON (HERO & BUNN) */
 .marquee-content {
     display: inline-block;
-    animation: marquee 20s linear infinite;
-    padding-left: 100%; /* Start fra høyre */
+    white-space: nowrap;
+    /* Endret til 10s for raskere tempo */
+    animation: marquee 15s linear infinite;
 }
 
 @keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
+    0% { transform: translateX(0); }
+    /* Flytter seg 50% til venstre (krever dobbel tekstmengde) */
+    100% { transform: translateX(-50%); }
 }
 
 /* REVIEWS MARQUEE STYLES */
 .reviews-wrapper {
-    width: 100%;
     overflow: hidden;
+    width: 100%;
     position: relative;
-}
-
-/* Fading på sidene av reviews */
-.reviews-wrapper::before,
-.reviews-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-.reviews-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, #050505, transparent);
-}
-.reviews-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, #050505, transparent);
+    /* Maske for å fade ut sidene */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .reviews-track {
     display: flex;
     gap: 2rem;
     width: max-content;
-    animation: scrollReviews 80s linear infinite; /* Sakte tempo for lesbarhet */
+    animation: scrollReviews 40s linear infinite;
 }
 
 .reviews-track:hover {
@@ -56,14 +40,14 @@ html {
 }
 
 .review-card {
-    width: 320px;
     background: #111;
+    border: 1px solid rgba(255,255,255,0.05);
     padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    flex-shrink: 0;
-    transition: border-color 0.3s ease;
+    min-width: 300px;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
+    border-radius: 1rem;
 }
 
 .review-card:hover {
@@ -75,13 +59,13 @@ html {
     100% { transform: translateX(-50%); }
 }
 
-/* Fjerne standard outline på knapper */
+/* Fix for knapper */
 button:focus, a:focus {
     outline: 2px solid #EDBE47;
     outline-offset: 2px;
 }
 
-/* Grayscale hover effekt fix */
+/* Grayscale hover fix */
 .grayscale {
     filter: grayscale(100%);
 }

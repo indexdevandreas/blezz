@@ -5,13 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLEZZBARBER | The Freshest Cuts</title>
     
+    <link rel="icon" type="image/png" href="bz.png">
+    <link rel="apple-touch-icon" href="bz.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+
+    <script>
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, arguments) : p(cal, arguments); return api; } p(cal, arguments); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", {origin:"https://cal.com"});
+      Cal("ui", {"theme":"dark", "styles":{"branding":{"brandColor":"#EDBE47"}}, "hideEventTypeDetails":false, "layout":"month_view"});
+    </script>
 
     <script>
         tailwind.config = {
@@ -44,9 +52,10 @@
                     <a href="#services" class="hover:text-white transition">Priser</a>
                     <a href="#work" class="hover:text-white transition">Cuts</a>
                 </div>
-                <a href="#booking" class="bg-gold text-black font-display font-bold uppercase tracking-wider px-6 py-2 hover:bg-white transition-colors skew-x-[-10deg]">
+                
+                <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-wider px-6 py-2 hover:bg-white transition-colors skew-x-[-10deg]">
                     <span class="block skew-x-[10deg]">Book Nå</span>
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -71,9 +80,11 @@
                         Spesialist på fades, skjegg og styling. Ingen hastverk, bare kvalitet.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#booking" class="bg-white text-black px-8 py-4 font-display font-bold uppercase tracking-wider hover:bg-gold transition-colors text-lg">
+                        
+                        <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-white text-black px-8 py-4 font-display font-bold uppercase tracking-wider hover:bg-gold transition-colors text-lg">
                             Bestill Time
-                        </a>
+                        </button>
+                        
                         <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="border border-white/20 px-8 py-4 font-display font-bold uppercase tracking-wider hover:border-white transition-colors flex items-center gap-2">
                             <i class="fa-brands fa-tiktok"></i> 2.5K+
                         </a>
@@ -83,7 +94,7 @@
 
             <div class="absolute bottom-0 left-0 w-full bg-gold text-black py-3 overflow-hidden whitespace-nowrap border-t border-b border-black font-display font-bold text-xl uppercase tracking-widest">
                 <div class="marquee-content">
-                    Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber ///
+                    Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber ///
                 </div>
             </div>
         </section>
@@ -100,7 +111,7 @@
                         </div>
                         <h3 class="font-display text-3xl font-bold uppercase mb-2">Herreklipp</h3>
                         <p class="text-gray-500 text-sm leading-relaxed">
-                            Klassisk klipp eller skinfade. Inkluderer konsultasjon, vask og styling.
+                            Klassisk klipp eller skinfade. Inkluderer konsultasjon, styling.
                         </p>
                     </div>
 
@@ -257,10 +268,11 @@
             <div class="max-w-3xl mx-auto" data-aos="zoom-in">
                 <h2 class="font-display text-5xl md:text-7xl font-bold uppercase mb-6 tracking-tight">Get Blezz'd</h2>
                 <p class="text-black/80 text-xl font-medium mb-10 max-w-xl mx-auto">
-                    Klar for en oppgradering? Ta kontakt og finn en tid som passer deg.
+                    Klar for en oppgradering? Klikk under for å finne en tid som passer deg.
                 </p>
-                <button class="bg-black text-white px-12 py-5 font-display font-bold uppercase tracking-widest text-xl hover:bg-white hover:text-black transition-transform hover:scale-105 shadow-2xl">
-                    +47 48 45 96 86
+                
+                <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-black text-white px-12 py-5 font-display font-bold uppercase tracking-widest text-xl hover:bg-white hover:text-black transition-transform hover:scale-105 shadow-2xl">
+                    Åpne Booking
                 </button>
             </div>
         </section>
