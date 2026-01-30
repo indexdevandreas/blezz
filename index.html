@@ -44,7 +44,7 @@
     </script>
 
     <style>
-        /* KILL HORIZONTAL SCROLL (FIKSET BUG) */
+        /* KILL HORIZONTAL SCROLL */
         html, body {
             max-width: 100%;
             overflow-x: hidden;
@@ -76,7 +76,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* REVIEWS STYLE - FIKSET FOR MOBIL */
+        /* REVIEWS STYLE - MOBIL FIKSET */
         .reviews-wrapper {
             overflow: hidden;
             width: 100%;
@@ -86,7 +86,7 @@
         }
         .reviews-track {
             display: flex;
-            gap: 1rem; /* Mindre gap på mobil */
+            gap: 1rem;
             width: max-content;
             animation: scrollReviews 80s linear infinite; 
         }
@@ -95,15 +95,14 @@
         .review-card {
             background: #0a0a0a;
             border: 1px solid rgba(255,255,255,0.08);
-            padding: 1.5rem; /* Litt mindre padding på mobil */
-            min-width: 280px; /* Smalere kort på mobil så de passer skjermen */
+            padding: 1.5rem;
+            min-width: 280px;
             max-width: 280px;
             display: flex;
             flex-direction: column;
             border-radius: 0;
         }
 
-        /* PC JUSTERINGER FOR REVIEWS */
         @media (min-width: 768px) {
             .reviews-track { gap: 2rem; }
             .review-card { 
@@ -184,7 +183,7 @@
     </nav>
 
     <main>
-        <section class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
+        <section class="relative min-h-screen flex items-center justify-center pt-32 pb-40 px-6 border-b border-white/5 overflow-hidden">
             <div class="absolute inset-0 z-0 bg-[#050505]">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(237,190,71,0.1)_0%,_rgba(5,5,5,1)_70%)]"></div>
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold/5 rounded-full animate-spin-slow pointer-events-none"></div>
@@ -223,10 +222,6 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-20 left-1/2 -translate-x-1/2 animate-bounce text-gold/30 z-20">
-                <i class="fa-solid fa-chevron-down text-2xl"></i>
-            </div>
-            
             <div class="absolute bottom-0 left-0 w-full bg-gold text-black py-3 overflow-hidden whitespace-nowrap border-t border-b border-black font-display font-bold text-xl uppercase tracking-widest z-20">
                 <div class="marquee-content">
                     Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber ///
@@ -340,7 +335,7 @@
 
                     <div class="flex flex-col gap-8" data-aos="fade-left">
                         <div class="bg-panel p-8 border border-white/5">
-                    
+                            <h3 class="font-display text-2xl font-bold uppercase mb-6 text-gold">Besøk Sjappa</h3>
                             <div class="space-y-6 text-gray-300 font-light">
                                 <div class="flex items-start gap-4">
                                     <i class="fa-solid fa-location-dot text-gold text-xl mt-1"></i>
