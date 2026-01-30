@@ -48,7 +48,7 @@
             scroll-behavior: smooth;
         }
 
-        /* MARQUEE ANIMASJON (HERO BUNN) */
+        /* MARQUEE ANIMASJON */
         .marquee-content {
             display: inline-block;
             white-space: nowrap;
@@ -96,7 +96,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* WORK / PORTFOLIO AUTO-SCROLL (Rullebånd) */
+        /* WORK / PORTFOLIO AUTO-SCROLL */
         .work-wrapper {
             overflow: hidden;
             width: 100%;
@@ -105,7 +105,7 @@
 
         .work-track {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem; /* Litt tettere gap på mobil */
             width: max-content;
             animation: scrollWork 80s linear infinite;
             will-change: transform;
@@ -115,20 +115,24 @@
             animation-play-state: paused;
         }
 
-        /* BILDER I PORTFOLIO */
+        /* --- HER ER FIKSEN FOR MOBIL --- */
         .work-card {
-            min-width: 280px; /* Mobil bredde */
-            height: 400px;    /* Fast høyde */
+            min-width: 200px; /* Mye smalere på mobil */
+            height: 280px;    /* Mye lavere på mobil (var 400px) */
             position: relative;
             border: 1px solid rgba(255,255,255,0.1);
             background: #111;
             flex-shrink: 0;
         }
 
+        /* PC-STØRRELSE (BEHOLDES STOR) */
         @media (min-width: 768px) {
             .work-card {
-                min-width: 350px; /* PC bredde */
+                min-width: 350px; 
                 height: 500px;
+            }
+            .work-track {
+                gap: 1.5rem;
             }
         }
 
@@ -174,7 +178,6 @@
             
             <div class="absolute inset-0 z-0 bg-[#050505]">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(237,190,71,0.1)_0%,_rgba(5,5,5,1)_70%)]"></div>
-                
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold/5 rounded-full animate-spin-slow pointer-events-none"></div>
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gold/10 rounded-full pointer-events-none"></div>
             </div>
