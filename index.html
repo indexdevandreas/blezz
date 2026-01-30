@@ -107,7 +107,7 @@
             display: flex;
             gap: 1.5rem;
             width: max-content;
-            animation: scrollWork 80s linear infinite; /* Treg loop */
+            animation: scrollWork 80s linear infinite;
             will-change: transform;
         }
 
@@ -115,7 +115,7 @@
             animation-play-state: paused;
         }
 
-        /* DETTE HINDRER AT BILDENE BLIR STORE */
+        /* BILDER I PORTFOLIO */
         .work-card {
             min-width: 280px; /* Mobil bredde */
             height: 400px;    /* Fast høyde */
@@ -346,12 +346,16 @@
 
             <div class="work-wrapper">
                 <div class="work-track">
-                    <div class="work-card"><img src="bilder/abdi.JPG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
+                    <div class="work-card">
+                        <img src="bilder/abdi.jpg" onerror="this.src='bilder/abdi.JPG'" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
                     <div class="work-card"><img src="bilder/musti.PNG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
                     <div class="work-card"><img src="bilder/nicho.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
                     <div class="work-card"><img src="bilder/oliver.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
                     
-                    <div class="work-card"><img src="bilder/abdi.JPG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
+                    <div class="work-card">
+                        <img src="bilder/abdi.jpg" onerror="this.src='bilder/abdi.JPG'" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
                     <div class="work-card"><img src="bilder/musti.PNG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
                     <div class="work-card"><img src="bilder/nicho.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
                     <div class="work-card"><img src="bilder/oliver.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
