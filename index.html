@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no" class="scroll-smooth">
+<html lang="no" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +44,13 @@
     </script>
 
     <style>
+        /* KILL HORIZONTAL SCROLL (FIKSET BUG) */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         /* GENERELT */
         html { scroll-behavior: smooth; }
         
@@ -69,7 +76,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* REVIEWS STYLE */
+        /* REVIEWS STYLE - FIKSET FOR MOBIL */
         .reviews-wrapper {
             overflow: hidden;
             width: 100%;
@@ -79,21 +86,33 @@
         }
         .reviews-track {
             display: flex;
-            gap: 2rem;
+            gap: 1rem; /* Mindre gap på mobil */
             width: max-content;
             animation: scrollReviews 80s linear infinite; 
         }
         .reviews-track:hover { animation-play-state: paused; }
+        
         .review-card {
             background: #0a0a0a;
             border: 1px solid rgba(255,255,255,0.08);
-            padding: 2rem;
-            min-width: 320px;
-            max-width: 320px;
+            padding: 1.5rem; /* Litt mindre padding på mobil */
+            min-width: 280px; /* Smalere kort på mobil så de passer skjermen */
+            max-width: 280px;
             display: flex;
             flex-direction: column;
             border-radius: 0;
         }
+
+        /* PC JUSTERINGER FOR REVIEWS */
+        @media (min-width: 768px) {
+            .reviews-track { gap: 2rem; }
+            .review-card { 
+                padding: 2rem;
+                min-width: 320px;
+                max-width: 320px;
+            }
+        }
+
         @keyframes scrollReviews {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -142,8 +161,7 @@
         }
     </style>
 </head>
-
-<body class="bg-dark text-white antialiased overflow-x-hidden">
+<body class="bg-dark text-white antialiased w-full">
 
     <nav class="fixed w-full z-50 px-6 py-4 bg-dark/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -270,11 +288,13 @@
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Sykt fornøyd med klippen."</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Anders</span></div></div>
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Top notch, kommer garantert tilbake 💯"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">H</div><span class="font-display uppercase font-bold text-sm tracking-wider">Henke</span></div></div>
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Ble BleZZa🫂"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">K</div><span class="font-display uppercase font-bold text-sm tracking-wider">Kunde</span></div></div>
+                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Bra service, bra klipp"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Abdiwasic</span></div></div>
                     
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Konge barber 👑"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">L</div><span class="font-display uppercase font-bold text-sm tracking-wider">Liam S</span></div></div>
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Sykt fornøyd med klippen."</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Anders</span></div></div>
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Top notch, kommer garantert tilbake 💯"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">H</div><span class="font-display uppercase font-bold text-sm tracking-wider">Henke</span></div></div>
                     <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Ble BleZZa🫂"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">K</div><span class="font-display uppercase font-bold text-sm tracking-wider">Kunde</span></div></div>
+                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Bra service, bra klipp"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Abdiwasic</span></div></div>
                 </div>
             </div>
         </section>
@@ -320,6 +340,7 @@
 
                     <div class="flex flex-col gap-8" data-aos="fade-left">
                         <div class="bg-panel p-8 border border-white/5">
+                            <h3 class="font-display text-2xl font-bold uppercase mb-6 text-gold">Besøk Sjappa</h3>
                             <div class="space-y-6 text-gray-300 font-light">
                                 <div class="flex items-start gap-4">
                                     <i class="fa-solid fa-location-dot text-gold text-xl mt-1"></i>
