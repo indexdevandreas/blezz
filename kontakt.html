@@ -47,13 +47,13 @@
             outline-offset: 2px;
         }
 
-        /* Fjerner standard styling på inputs for clean look */
+        /* Fjerner standard styling på inputs */
         input, textarea {
             appearance: none;
             -webkit-appearance: none;
         }
 
-        /* GJØR GOOGLE MAPS MØRKT OG KULT */
+        /* Mørkt kart filter */
         .map-dark-mode {
             filter: grayscale(100%) invert(92%) contrast(83%);
             mix-blend-mode: hard-light;
@@ -72,6 +72,7 @@
                 <div class="hidden md:flex gap-6 font-display font-medium tracking-wide uppercase text-sm text-gray-400">
                     <a href="index.html#services" class="hover:text-white transition">Priser</a>
                     <a href="index.html#work" class="hover:text-white transition">Portfolio</a>
+                    <a href="kontakt.html" class="text-white transition">Kontakt</a>
                 </div>
                 
                 <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-wider px-6 py-2 hover:bg-white transition-colors skew-x-[-10deg]">
@@ -89,21 +90,20 @@
                     Kontakt <span class="text-gold">Meg</span>
                 </h1>
                 <p class="text-gray-400 text-lg font-light max-w-2xl mx-auto">
-                    Spørsmål om klipp, styling eller booking? Send meg en melding.
+                    Spørsmål om klipp, styling eller booking?
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 
-                <div class="bg-panel p-8 md:p-12 border border-white/5 shadow-2xl" data-aos="fade-right">
+                <div class="bg-panel p-8 md:p-12 border border-white/5 shadow-2xl relative" data-aos="fade-right">
                     <h3 class="font-display text-2xl font-bold uppercase mb-8 border-b border-white/10 pb-4">Send Melding</h3>
                     
-                    <form action="https://formsubmit.co/blezzcontactnow@gmail.no" method="POST" class="flex flex-col gap-6">
+                    <form id="blezz-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-6">
                         
-                        <input type="hidden" name="_subject" value="Ny melding fra BlezzBarber Nettside!">
-                        <input type="hidden" name="_captcha" value="false"> 
-                        <input type="hidden" name="_template" value="table"> 
-                        
+                        <input type="hidden" name="access_key" value="DIN_NYE_ACCESS_KEY_HER">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                         <div>
                             <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">Ditt Navn</label>
                             <input type="text" name="navn" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600" placeholder="Ola Nordmann">
@@ -119,17 +119,23 @@
                             <textarea name="melding" rows="5" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600 resize-none" placeholder="Hva lurer du på?"></textarea>
                         </div>
 
-                        <button type="submit" class="bg-gold text-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors mt-2">
+                        <button type="submit" id="submit-btn" class="bg-gold text-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors mt-2">
                             Send Melding
                         </button>
                     </form>
+
+                    <div id="success-msg" class="hidden absolute inset-0 bg-panel flex flex-col items-center justify-center text-center p-8 z-20">
+                        <i class="fa-solid fa-check-circle text-gold text-6xl mb-6"></i>
+                        <h3 class="font-display text-3xl font-bold uppercase mb-2">Mottatt!</h3>
+                        <p class="text-gray-400">Vi svarer deg så fort vi legger ned saksen.</p>
+                        <button onclick="location.reload()" class="mt-8 text-sm text-gold hover:text-white uppercase tracking-widest font-bold underline">Send en til</button>
+                    </div>
+
                 </div>
 
                 <div class="flex flex-col gap-8" data-aos="fade-left">
-                    
                     <div class="bg-panel p-8 border border-white/5">
                         <h3 class="font-display text-2xl font-bold uppercase mb-6 text-gold">Besøk Oss</h3>
-                        
                         <div class="space-y-6 text-gray-300 font-light">
                             <div class="flex items-start gap-4">
                                 <i class="fa-solid fa-location-dot text-gold text-xl mt-1"></i>
@@ -140,7 +146,6 @@
                                     <span class="text-gold font-bold uppercase tracking-widest text-xs mt-2 block">/// INGEN DROP INS</span>
                                 </div>
                             </div>
-
                             <div class="flex items-start gap-4">
                                 <i class="fa-solid fa-envelope text-gold text-xl mt-1"></i>
                                 <div>
@@ -148,7 +153,6 @@
                                     <a href="mailto:blezzcontactnow@gmail.no" class="hover:text-gold transition">blezzcontactnow@gmail.no</a>
                                 </div>
                             </div>
-                            
                             <div class="flex items-start gap-4">
                                 <i class="fa-brands fa-tiktok text-gold text-xl mt-1"></i>
                                 <div>
@@ -161,23 +165,26 @@
 
                     <div class="h-80 w-full bg-[#111] border border-white/5 relative overflow-hidden">
                        <iframe 
+                           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2009.6190479188553!2d10.204561877678583!3d59.7424683791333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46413cb1711204d1%3A0x1c8b3f3b12345678!2sCappelens%20gate%2027%2C%203015%20Drammen!5e0!3m2!1sen!2sno!4v1700000000000!5m2!1sen!2sno" 
                            width="100%" 
                            height="100%" 
-                           class="map-dark-mode"
-                           src="https://maps.google.com/maps?q=Cappelens+gate+27,+3015+Drammen&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                           frameborder="0" 
-                           scrolling="no" 
-                           marginheight="0" 
-                           marginwidth="0">
+                           style="border:0; filter: grayscale(100%) invert(92%) contrast(83%);" 
+                           allowfullscreen="" 
+                           loading="lazy" 
+                           referrerpolicy="no-referrer-when-downgrade">
                        </iframe>
                     </div>
-
                 </div>
             </div>
         </div>
     </main>
 
     <footer class="bg-dark py-12 px-6 border-t border-white/10 text-center relative z-10">
+        <div class="flex justify-center gap-8 mb-8 font-display uppercase tracking-widest text-xs font-bold text-gray-400">
+            <a href="index.html#services" class="hover:text-gold transition">Priser</a>
+            <a href="index.html#work" class="hover:text-gold transition">Portfolio</a>
+            <a href="kontakt.html" class="hover:text-gold transition">Kontakt</a>
+        </div>
         <p class="text-gray-600 uppercase tracking-widest text-xs font-bold">
             BlezzBarber 2026 • Designet av <a href="https://indexdevelopment.no" class="text-gold hover:underline">Index Development</a>
         </p>
@@ -186,6 +193,49 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
+
+        // --- JAVASCRIPT FOR Å SENDE SKJEMA (AJAX) ---
+        const form = document.getElementById('blezz-form');
+        const successMsg = document.getElementById('success-msg');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SENDER...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50');
+
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    form.style.display = "none";
+                    successMsg.classList.remove("hidden");
+                } else {
+                    console.log(response);
+                    submitBtn.innerHTML = "FEIL. PRØV IGJEN.";
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                submitBtn.innerHTML = "NOE GIKK GALT.";
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50');
+            });
+        });
     </script>
 </body>
 </html>
