@@ -105,7 +105,7 @@
 
         .work-track {
             display: flex;
-            gap: 1rem; /* Litt tettere gap på mobil */
+            gap: 1rem;
             width: max-content;
             animation: scrollWork 80s linear infinite;
             will-change: transform;
@@ -115,17 +115,29 @@
             animation-play-state: paused;
         }
 
-        /* --- HER ER FIKSEN FOR MOBIL --- */
+        /* --- BILDENE FYLLER NÅ HELT UT --- */
         .work-card {
-            min-width: 200px; /* Mye smalere på mobil */
-            height: 280px;    /* Mye lavere på mobil (var 400px) */
+            min-width: 160px; /* Mobil bredde */
+            height: 220px;    /* Mobil høyde */
             position: relative;
             border: 1px solid rgba(255,255,255,0.1);
             background: #111;
             flex-shrink: 0;
+            overflow: hidden; /* Klipper bort det som stikker ut */
         }
 
-        /* PC-STØRRELSE (BEHOLDES STOR) */
+        /* Tvinger bildet til å dekke alt (Absolute positioning) */
+        .work-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Dekker hele flaten uten å strekkes feil */
+            display: block;
+        }
+
+        /* PC-STØRRELSE */
         @media (min-width: 768px) {
             .work-card {
                 min-width: 350px; 
