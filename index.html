@@ -3,471 +3,705 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLEZZBARBER | The Freshest Cuts</title>
-    
+    <title>BLEZZBARBER | The Freshest Cuts in Drammen</title>
+    <meta name="description" content="BlezzBarber – Drammens skarpeste barber. Skin fade, herreklipp og skjegg i Cappelens gate 27, Drammen. Kun etter booking.">
+    <meta name="theme-color" content="#050505">
+    <meta property="og:title" content="BLEZZBARBER | The Freshest Cuts in Drammen">
+    <meta property="og:description" content="Presisjon, stil og god stemning. Book din time hos BlezzBarber i Drammen.">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="shortcut icon" href="icon.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <script>
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, arguments) : p(cal, arguments); return api; } p(cal, arguments); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-      Cal("init", {origin:"https://cal.com"});
-      Cal("ui", {"theme":"dark", "styles":{"branding":{"brandColor":"#EDBE47"}}, "hideEventTypeDetails":false, "layout":"month_view"});
-    </script>
+    <!-- Preconnect for faster external resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://app.cal.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS CSS async -->
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+
+    <!-- Font Awesome async (non-render-blocking) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        gold: '#EDBE47',
-                        dark: '#050505',
-                        panel: '#111111'
-                    },
-                    fontFamily: {
-                        display: ['Oswald', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'spin-slow': 'spin 30s linear infinite',
-                    }
+                    colors: { gold: '#EDBE47', dark: '#050505', panel: '#111111' },
+                    fontFamily: { display: ['Oswald','sans-serif'], body: ['Inter','sans-serif'] },
+                    animation: { 'spin-slow': 'spin 30s linear infinite' }
                 }
             }
         }
     </script>
 
     <style>
-        /* KILL HORIZONTAL SCROLL */
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* GENERELT */
+        html, body { max-width: 100%; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
-        
-        button:focus, a:focus, input:focus, textarea:focus {
-            outline: 2px solid #EDBE47;
-            outline-offset: 2px;
+        button:focus, a:focus, input:focus, textarea:focus { outline: 2px solid #EDBE47; outline-offset: 2px; }
+        input, textarea { appearance: none; -webkit-appearance: none; }
+
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, #EDBE47, #fff4a8, #EDBE47);
+            z-index: 9999; width: 0%; transition: width 0.1s ease;
         }
 
-        /* Fjerner standard styling på inputs */
-        input, textarea {
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        /* MARQUEE ANIMASJON */
         .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 20s linear infinite;
+            display: inline-block; white-space: nowrap;
+            animation: marquee 22s linear infinite;
         }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-        /* REVIEWS STYLE - MOBIL FIKSET */
         .reviews-wrapper {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            overflow: hidden; width: 100%; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
         }
         .reviews-track {
-            display: flex;
-            gap: 1rem;
-            width: max-content;
-            animation: scrollReviews 80s linear infinite; 
+            display: flex; gap: 1.5rem; width: max-content;
+            animation: scrollReviews 55s linear infinite;
         }
         .reviews-track:hover { animation-play-state: paused; }
-        
         .review-card {
-            background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 1.5rem;
-            min-width: 280px;
-            max-width: 280px;
-            display: flex;
-            flex-direction: column;
-            border-radius: 0;
+            background: #0d0d0d; border: 1px solid rgba(237,190,71,0.1);
+            padding: 1.75rem; min-width: 300px; max-width: 300px;
+            display: flex; flex-direction: column; transition: border-color 0.3s;
         }
+        .review-card:hover { border-color: rgba(237,190,71,0.4); }
+        @media(min-width:768px){ .review-card{min-width:340px;max-width:340px;padding:2rem;} }
+        @keyframes scrollReviews { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-        @media (min-width: 768px) {
-            .reviews-track { gap: 2rem; }
-            .review-card { 
-                padding: 2rem;
-                min-width: 320px;
-                max-width: 320px;
-            }
-        }
-
-        @keyframes scrollReviews {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* WORK / GALLERI AUTO-SCROLL */
-        .work-wrapper {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-        }
+        .work-wrapper { overflow: hidden; width: 100%; }
         .work-track {
-            display: flex;
-            gap: 1rem;
-            width: max-content;
-            animation: scrollWork 80s linear infinite;
-            will-change: transform;
+            display: flex; gap: 1rem; width: max-content;
+            animation: scrollWork 50s linear infinite; will-change: transform;
         }
         .work-track:hover { animation-play-state: paused; }
         .work-card {
-            min-width: 160px; height: 220px;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #111;
-            flex-shrink: 0;
-            overflow: hidden;
+            min-width: 200px; height: 260px; position: relative;
+            border: 1px solid rgba(255,255,255,0.08); background: #111;
+            flex-shrink: 0; overflow: hidden;
         }
         .work-card img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top:0; left:0; width:100%; height:100%;
             object-fit: cover; display: block;
+            transition: transform 0.6s ease, filter 0.4s ease;
+            filter: grayscale(80%);
         }
+        .work-card:hover img { filter: grayscale(0%); transform: scale(1.06); }
         .work-card:hover { border-color: #EDBE47; }
-        @media (min-width: 768px) {
-            .work-card { min-width: 350px; height: 500px; }
-            .work-track { gap: 1.5rem; }
-        }
-        @keyframes scrollWork {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @media(min-width:768px){ .work-card{min-width:380px;height:520px;} .work-track{gap:1.5rem;} }
+        @keyframes scrollWork { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; }
+        #mobile-menu.menu-closed { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        #mobile-menu.menu-open  { transform: translateY(0);     opacity: 1; pointer-events: all; }
+
+        .hero-overlay {
+            background: linear-gradient(to bottom,
+                rgba(5,5,5,0.65) 0%, rgba(5,5,5,0.35) 40%,
+                rgba(5,5,5,0.80) 75%, rgba(5,5,5,1) 100%);
         }
 
-        /* MAP DARK MODE */
-        .map-dark-mode {
-            filter: grayscale(100%) invert(92%) contrast(83%);
-            mix-blend-mode: hard-light;
+        .stat-number {
+            font-size: clamp(2.8rem, 7vw, 4.5rem); line-height: 1;
+            background: linear-gradient(135deg, #EDBE47, #fff4a8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
+
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-answer.open { max-height: 400px; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-icon.rotated { transform: rotate(45deg); }
+
+        #float-book { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); z-index:40; display:none; }
+        @media(max-width:767px){ #float-book{display:block;} }
+
+        .map-dark-mode { filter: grayscale(100%) invert(92%) contrast(83%); mix-blend-mode: hard-light; }
+
+        .section-label {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'Oswald',sans-serif; font-size: 0.7rem;
+            letter-spacing: 0.2em; text-transform: uppercase; color: #EDBE47; margin-bottom: 0.75rem;
+        }
+        .section-label::before { content:''; display:inline-block; width:24px; height:2px; background:#EDBE47; }
+
+        .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(237,190,71,0.08); }
+
+        nav.scrolled { background: rgba(5,5,5,0.97) !important; }
     </style>
 </head>
 <body class="bg-dark text-white antialiased w-full">
 
-    <nav class="fixed w-full z-50 px-6 py-4 bg-dark/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#">
-                <img src="bilder/blezz.PNG" alt="BlezzBarber" class="h-12 md:h-16 w-auto object-contain">
-            </a>
-            
-            <div class="flex items-center gap-8">
-                <div class="hidden md:flex gap-6 font-display font-medium tracking-wide uppercase text-xs text-gray-400">
-                    <a href="#services" class="hover:text-white transition">Priser</a>
-                    <a href="#work" class="hover:text-white transition">Galleri</a>
-                    <a href="#contact" class="hover:text-white transition">Kontakt</a>
-                </div>
-                
-                <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-wider px-5 py-2 text-sm hover:bg-white transition-colors skew-x-[-10deg]">
-                    <span class="block skew-x-[10deg]">Book Nå</span>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="main-nav" class="fixed w-full z-50 px-6 py-4 bg-transparent backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#"><img src="bilder/blezz.PNG" alt="BlezzBarber" class="h-12 md:h-14 w-auto object-contain" width="200" height="56" fetchpriority="high"></a>
+        <div class="hidden md:flex items-center gap-10">
+            <div class="flex gap-8 font-display font-medium tracking-widest uppercase text-xs text-gray-400">
+                <a href="#om-meg"   class="hover:text-gold transition-colors">Om</a>
+                <a href="#services" class="hover:text-gold transition-colors">Priser</a>
+                <a href="#work"     class="hover:text-gold transition-colors">Galleri</a>
+                <a href="#contact"  class="hover:text-gold transition-colors">Kontakt</a>
+            </div>
+            <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-widest px-6 py-2.5 text-sm hover:bg-white transition-colors">Book Nå</button>
+        </div>
+        <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Åpne meny">
+            <span class="ham-line block w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span class="ham-line block w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span class="ham-line block w-4 h-0.5 bg-gold transition-all duration-300"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="menu-closed fixed inset-0 bg-dark z-40 flex flex-col justify-center items-center gap-8">
+    <div class="flex flex-col gap-5 text-center">
+        <a href="#om-meg"   class="mobile-link font-display text-5xl font-bold uppercase hover:text-gold transition-colors">Om</a>
+        <a href="#services" class="mobile-link font-display text-5xl font-bold uppercase hover:text-gold transition-colors">Priser</a>
+        <a href="#work"     class="mobile-link font-display text-5xl font-bold uppercase hover:text-gold transition-colors">Galleri</a>
+        <a href="#contact"  class="mobile-link font-display text-5xl font-bold uppercase hover:text-gold transition-colors">Kontakt</a>
+    </div>
+    <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="mobile-link mt-4 bg-gold text-black font-display font-bold uppercase tracking-widest px-12 py-4 text-xl hover:bg-white transition-colors">Book Tid</button>
+    <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="text-gold/50 hover:text-gold text-2xl transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+</div>
+
+<main>
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="bilder/hero.png" alt="BlezzBarber" class="w-full h-full object-cover object-center" fetchpriority="high" decoding="async" width="1920" height="1080">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="hidden lg:flex absolute left-10 bottom-36 flex-col items-center gap-5 z-20">
+            <div class="w-px h-20 bg-gradient-to-b from-transparent to-gold/40"></div>
+            <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="text-gold/50 hover:text-gold text-lg transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="w-px h-20 bg-gradient-to-t from-transparent to-gold/40"></div>
+        </div>
+        <div class="hidden lg:flex absolute right-10 bottom-36 flex-col items-center gap-4 z-20">
+            <div class="w-px h-20 bg-gradient-to-b from-transparent to-gold/40"></div>
+            <span class="text-gold/50 font-display uppercase tracking-[0.3em] text-xs rotate-180" style="writing-mode:vertical-rl">Drammen</span>
+            <i class="fa-solid fa-location-dot text-gold/50 text-sm"></i>
+            <div class="w-px h-20 bg-gradient-to-t from-transparent to-gold/40"></div>
+        </div>
+        <div class="relative z-10 max-w-5xl mx-auto text-center px-6 pt-24 pb-44" data-aos="fade-up" data-aos-duration="1200">
+            <div class="inline-flex items-center gap-3 mb-8 border border-gold/20 px-5 py-2 bg-black/40 backdrop-blur-sm rounded-full">
+                <div class="h-2 w-2 rounded-full bg-gold animate-pulse shadow-[0_0_10px_#EDBE47]"></div>
+                <span class="text-gold font-display font-bold tracking-[0.25em] text-xs uppercase">Premium Cuts · Drammen</span>
+            </div>
+            <h1 class="font-display text-[4.5rem] sm:text-8xl md:text-[9rem] lg:text-[11rem] font-bold uppercase leading-[0.85] mb-8 text-white">
+                Sharp<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">Cuts</span><br>Only.
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl font-light max-w-xl mx-auto mb-12 leading-relaxed">
+                Ingen samlebåndsklipp – bare presisjon, stil og god stemning. <strong class="text-white font-medium">Kun etter booking.</strong>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="group bg-gold text-black px-10 py-4 font-display font-bold uppercase tracking-widest text-base hover:bg-white hover:scale-105 transition-all flex items-center gap-3 min-w-[220px] justify-center shadow-[0_0_30px_rgba(237,190,71,0.3)]">
+                    <i class="fa-solid fa-calendar-check group-hover:scale-110 transition-transform"></i> Book Time
                 </button>
+                <a href="#work" class="px-10 py-4 border border-white/20 font-display font-bold uppercase tracking-widest text-base hover:border-gold hover:text-gold transition-all flex items-center gap-2 min-w-[220px] justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-images"></i> Se Galleri
+                </a>
             </div>
         </div>
-    </nav>
-
-    <main>
-        <section class="relative min-h-screen flex items-center justify-center pt-32 pb-40 px-6 border-b border-white/5 overflow-hidden">
-            <div class="absolute inset-0 z-0 bg-[#050505]">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(237,190,71,0.1)_0%,_rgba(5,5,5,1)_70%)]"></div>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold/5 rounded-full animate-spin-slow pointer-events-none"></div>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gold/10 rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-full bg-gold text-black py-3 overflow-hidden whitespace-nowrap border-t border-b border-black/20 font-display font-bold text-base md:text-xl uppercase tracking-widest z-20">
+            <div class="marquee-content">
+                Skin Fade &nbsp;/// &nbsp;Beard Trim &nbsp;/// &nbsp;Line Up &nbsp;/// &nbsp;Styling &nbsp;/// &nbsp;BlezzBarber &nbsp;/// &nbsp;Skin Fade &nbsp;/// &nbsp;Beard Trim &nbsp;/// &nbsp;Line Up &nbsp;/// &nbsp;Styling &nbsp;/// &nbsp;BlezzBarber &nbsp;/// &nbsp;Skin Fade &nbsp;/// &nbsp;Beard Trim &nbsp;/// &nbsp;Line Up &nbsp;/// &nbsp;Styling &nbsp;/// &nbsp;BlezzBarber &nbsp;/// &nbsp;Skin Fade &nbsp;/// &nbsp;Beard Trim &nbsp;/// &nbsp;Line Up &nbsp;/// &nbsp;Styling &nbsp;/// &nbsp;BlezzBarber &nbsp;///&nbsp;
             </div>
+        </div>
+    </section>
 
-            <div class="hidden lg:flex absolute left-12 top-1/2 -translate-y-1/2 flex-col items-center gap-8 z-20">
-                <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
-                <div class="flex flex-col gap-6 text-gold/50 text-xl">
-                    <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="hover:text-gold hover:scale-110 transition-all"><i class="fa-brands fa-tiktok"></i></a>
+    <!-- STATS -->
+    <section class="py-16 bg-[#080808] border-b border-white/5 relative z-10">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div data-aos="fade-up" data-aos-delay="0">
+                    <div class="stat-number font-display font-bold">500+</div>
+                    <p class="text-gray-500 font-display uppercase tracking-widest text-xs mt-2">Fornøyde kunder</p>
                 </div>
-                <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
-            </div>
-
-            <div class="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 flex-col items-center gap-8 z-20">
-                <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
-                <span class="text-gold/50 font-display uppercase tracking-[0.3em] text-xs rotate-180" style="writing-mode: vertical-rl;">Drammen</span>
-                <i class="fa-solid fa-location-dot text-gold/50"></i>
-                <div class="w-[1px] h-24 bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
-            </div>
-
-            <div class="relative z-10 max-w-4xl mx-auto text-center" data-aos="fade-up" data-aos-duration="1000">
-                <div class="inline-flex items-center gap-3 mb-8 border border-white/5 px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full">
-                    <div class="h-2 w-2 rounded-full bg-gold animate-pulse shadow-[0_0_10px_#EDBE47]"></div>
-                    <span class="text-gold font-display font-bold tracking-[0.2em] text-xs uppercase">Premium Cuts</span>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-number font-display font-bold">5.0</div>
+                    <p class="text-gray-500 font-display uppercase tracking-widest text-xs mt-2">Snittkarakter</p>
                 </div>
-                <h1 class="font-display text-7xl md:text-9xl font-bold uppercase leading-[0.85] mb-8 text-white drop-shadow-2xl">
-                    Sharp <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">Cuts</span> <br>Only.
-                </h1>
-                <p class="text-gray-400 text-lg md:text-xl font-light max-w-xl mx-auto mb-12 leading-relaxed">
-                    Opplev forskjellen hos BlezzBarber. Ingen samlebåndsklipp – bare presisjon, stil og god stemning. Ingen drop-ins tillat.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="group bg-gold text-black px-12 py-4 font-display font-bold uppercase tracking-widest text-lg hover:bg-white hover:scale-105 transition-all flex items-center gap-3 min-w-[220px] justify-center shadow-[0_0_20px_rgba(237,190,71,0.2)]">Book Time</button>
-                    <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="px-10 py-4 border border-white/10 font-display font-bold uppercase tracking-widest hover:border-gold hover:text-gold transition-all flex items-center gap-2 min-w-[220px] justify-center bg-transparent"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-number font-display font-bold">3+</div>
+                    <p class="text-gray-500 font-display uppercase tracking-widest text-xs mt-2">Års erfaring</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-number font-display font-bold">0</div>
+                    <p class="text-gray-500 font-display uppercase tracking-widest text-xs mt-2">Drop-ins tillatt</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="absolute bottom-0 left-0 w-full bg-gold text-black py-3 overflow-hidden whitespace-nowrap border-t border-b border-black font-display font-bold text-xl uppercase tracking-widest z-20">
-                <div class="marquee-content">
-                    Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber /// Skin Fade /// Beard Trim /// Line Up /// Styling /// BlezzBarber ///
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="py-32 px-6 bg-dark relative z-10">
-            <div class="max-w-5xl mx-auto">
-                <h2 class="font-display text-4xl md:text-5xl font-bold uppercase mb-16 text-center md:text-left">Tjenester <span class="text-gold">///</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-panel p-10 border border-white/5 hover:border-gold/50 transition-colors group" data-aos="fade-up">
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="fa-solid fa-scissors text-4xl text-gold group-hover:scale-110 transition-transform"></i>
-                            <span class="font-display font-bold text-3xl">250,-</span>
-                        </div>
-                        <h3 class="font-display text-3xl font-bold uppercase mb-2">Herreklipp</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">Klassisk klipp eller skinfade. Inkluderer konsultasjon, vask og styling.</p>
+    <!-- OM MEG -->
+    <section id="om-meg" class="py-32 px-6 bg-dark border-b border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <div class="section-label">Om barberen</div>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold uppercase mb-6">Blezz <span class="text-gold">Barber</span></h2>
+                    <div class="space-y-5 text-gray-400 text-base leading-relaxed font-light">
+                        <p>Jeg er en pasjonert barber basert i Drammen, med fokus på ekte håndverk og personlig service. Hvert klipp er en opplevelse – ikke bare en tjeneste.</p>
+                        <p>Spesialist på skin fades, line ups og skjeggforming. Jeg bruker kun kvalitetsprodukter og tar meg tid til å forstå akkurat hva du ønsker.</p>
+                        <p class="text-white font-medium italic">"Din stil er mitt ansvar – og jeg tar det ansvaret på alvor."</p>
                     </div>
-                    <div class="bg-panel p-10 border-2 border-gold hover:bg-gold hover:text-black transition-colors group relative overflow-hidden shadow-2xl shadow-gold/10" data-aos="fade-up" data-aos-delay="100">
-                        <div class="absolute top-0 right-0 bg-gold text-black text-xs font-bold px-3 py-1 uppercase font-display tracking-widest">Anbefalt</div>
-                        <div class="flex justify-between items-start mb-6">
-                            <i class="fa-solid fa-crown text-4xl text-gold group-hover:text-black transition-colors"></i>
-                            <span class="font-display font-bold text-3xl">350,-</span>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <div class="flex items-center gap-2 bg-panel border border-white/5 px-5 py-3">
+                            <i class="fa-solid fa-scissors text-gold text-sm"></i>
+                            <span class="font-display uppercase tracking-wider text-sm">Skin Fade</span>
                         </div>
-                        <h3 class="font-display text-3xl font-bold uppercase mb-2">Hår & Skjegg</h3>
-                        <p class="text-gray-500 group-hover:text-black/80 text-sm leading-relaxed">Den komplette pakken. Full klipp/fade kombinert med forming av skjegg og skarpe linjer.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="work" class="py-24 border-t border-white/5 bg-dark relative z-10 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 mb-12">
-                <h2 class="font-display text-4xl md:text-6xl font-bold uppercase mb-2">Galleri <span class="text-gold">.</span></h2>
-                <p class="text-gray-500">Et utvalg av mitt arbeid</p>
-            </div>
-            <div class="work-wrapper">
-                <div class="work-track">
-                    <div class="work-card"><img src="bilder/abdi.jpg" onerror="this.src='bilder/abdi.JPG'" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/musti.PNG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/nicho.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/oliver.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/abdi.jpg" onerror="this.src='bilder/abdi.JPG'" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/musti.PNG" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/nicho.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                    <div class="work-card"><img src="bilder/oliver.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-dark overflow-hidden border-t border-white/5 relative z-10">
-            <div class="max-w-7xl mx-auto px-6 mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold uppercase text-center md:text-left">Anmeldelser <span class="text-gold">///</span></h2>
-            </div>
-            <div class="reviews-wrapper">
-                <div class="reviews-track">
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Konge barber 👑"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">L</div><span class="font-display uppercase font-bold text-sm tracking-wider">Liam S</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Sykt fornøyd med klippen."</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Anders</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Top notch, kommer garantert tilbake 💯"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">H</div><span class="font-display uppercase font-bold text-sm tracking-wider">Henke</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Ble BleZZa🫂"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">K</div><span class="font-display uppercase font-bold text-sm tracking-wider">Kunde</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Bra service, bra klipp"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Abdiwasic</span></div></div>
-                    
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Konge barber 👑"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">L</div><span class="font-display uppercase font-bold text-sm tracking-wider">Liam S</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Sykt fornøyd med klippen."</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Anders</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Top notch, kommer garantert tilbake 💯"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">H</div><span class="font-display uppercase font-bold text-sm tracking-wider">Henke</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Ble BleZZa🫂"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">K</div><span class="font-display uppercase font-bold text-sm tracking-wider">Kunde</span></div></div>
-                    <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 font-body text-sm mb-6 leading-relaxed">"Bra service, bra klipp"</p><div class="flex items-center gap-3 mt-auto"><div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-xs font-display">A</div><span class="font-display uppercase font-bold text-sm tracking-wider">Abdiwasic</span></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-32 px-6 bg-dark relative z-10 border-t border-white/5">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-down">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase text-white mb-4">
-                        Kontakt <span class="text-gold">Meg</span>
-                    </h2>
-                    <p class="text-gray-400 text-lg font-light max-w-2xl mx-auto">
-                        Spørsmål om klipp, styling eller booking? Send meg en melding.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    <div class="bg-panel p-8 md:p-12 border border-white/5 shadow-2xl relative" data-aos="fade-right">
-                        <h3 class="font-display text-2xl font-bold uppercase mb-8 border-b border-white/10 pb-4">Send Melding</h3>
-                        <form id="blezz-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-6">
-                            <input type="hidden" name="access_key" value="e2820c81-5f07-434d-92df-8d2c6ab0e375">
-                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                            <div>
-                                <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">Ditt Navn</label>
-                                <input type="text" name="navn" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600" placeholder="Ola Nordmann">
-                            </div>
-                            <div>
-                                <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">E-post</label>
-                                <input type="email" name="email" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600" placeholder="ola@mail.no">
-                            </div>
-                            <div>
-                                <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">Melding</label>
-                                <textarea name="melding" rows="5" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600 resize-none" placeholder="Hva lurer du på?"></textarea>
-                            </div>
-                            <button type="submit" id="submit-btn" class="bg-gold text-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors mt-2">Send Melding</button>
-                        </form>
-                        <div id="success-msg" class="hidden absolute inset-0 bg-panel flex flex-col items-center justify-center text-center p-8 z-20">
-                            <i class="fa-solid fa-check-circle text-gold text-6xl mb-6"></i>
-                            <h3 class="font-display text-3xl font-bold uppercase mb-2">Mottatt!</h3>
-                            <p class="text-gray-400">Jeg svarer deg så fort jeg legger ned saksen.</p>
-                            <button onclick="location.reload()" class="mt-8 text-sm text-gold hover:text-white uppercase tracking-widest font-bold underline">Send en til</button>
+                        <div class="flex items-center gap-2 bg-panel border border-white/5 px-5 py-3">
+                            <i class="fa-solid fa-star text-gold text-sm"></i>
+                            <span class="font-display uppercase tracking-wider text-sm">Line Up</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-panel border border-white/5 px-5 py-3">
+                            <i class="fa-solid fa-crown text-gold text-sm"></i>
+                            <span class="font-display uppercase tracking-wider text-sm">Skjegg</span>
                         </div>
                     </div>
-
-                    <div class="flex flex-col gap-8" data-aos="fade-left">
-                        <div class="bg-panel p-8 border border-white/5">
-                            <h3 class="font-display text-2xl font-bold uppercase mb-6 text-gold">Besøk Sjappa</h3>
-                            <div class="space-y-6 text-gray-300 font-light">
-                                <div class="flex items-start gap-4">
-                                    <i class="fa-solid fa-location-dot text-gold text-xl mt-1"></i>
-                                    <div>
-                                        <strong class="block text-white font-display uppercase tracking-wide text-sm mb-1">Adresse</strong>
-                                        Cappelens gate 27<br>3015 Drammen<br>
-                                        <span class="text-gold font-bold uppercase tracking-widest text-xs mt-2 block">/// INGEN DROP INS</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-4">
-                                    <i class="fa-solid fa-envelope text-gold text-xl mt-1"></i>
-                                    <div>
-                                        <strong class="block text-white font-display uppercase tracking-wide text-sm mb-1">E-post</strong>
-                                        <a href="mailto:blezzcontactnow@gmail.com" class="hover:text-gold transition">blezzcontactnow@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="h-80 w-full bg-[#111] border border-white/5 relative overflow-hidden">
-                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2005.123456789!2d10.2045!3d59.7439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46413cb000000001%3A0x0!2sCappelens+gate+27%2C+3015+Drammen!5e0!3m2!1sen!2sno!4v1234567890" width="100%" height="100%" style="border:0;" class="map-dark-mode" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
+                    <div class="mt-10">
+                        <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-widest px-8 py-3.5 hover:bg-white transition-colors inline-flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-check"></i> Book Din Time
+                        </button>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="booking" class="bg-gold text-black py-24 px-6 text-center relative z-10">
-            <div class="max-w-3xl mx-auto" data-aos="zoom-in">
-                <h2 class="font-display text-5xl md:text-8xl font-bold uppercase mb-6 tracking-tight">Get Blezz'd</h2>
-                <p class="text-black/80 text-xl font-medium mb-10 max-w-xl mx-auto">
-                    Klar for en oppgradering? Klikk under for å finne en tid som passer deg.
-                </p>
-                <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-black text-white px-12 py-5 font-display font-bold uppercase tracking-widest text-xl hover:bg-white hover:text-black transition-transform hover:scale-105 shadow-2xl">
-                    Åpne Booking
-                </button>
-            </div>
-        </section>
-
-        <footer class="bg-[#080808] pt-20 pb-10 border-t border-white/5 text-gray-400 font-light relative z-10">
-            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                
-                <div class="space-y-6">
-                    <img src="bilder/blezz.PNG" alt="BlezzBarber" class="h-12 w-auto opacity-80 mb-4">
-                    <p class="text-sm leading-relaxed max-w-xs">
-                        Drammens skarpeste barber. Fokus på kvalitet, presisjon og den gode samtalen. Din stil er mitt ansvar.
-                    </p>
-                    <div class="flex gap-4 pt-2">
-                        <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold hover:text-black transition-colors">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
+                <div data-aos="fade-left" data-aos-duration="1000" class="relative">
+                    <div class="relative overflow-hidden" style="max-height:600px">
+                        <img src="bilder/hero.png" alt="BlezzBarber" class="w-full object-cover object-top" style="max-height:600px" loading="lazy" decoding="async" width="800" height="600">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent"></div>
                     </div>
+                    <div class="absolute -bottom-5 -left-5 bg-gold text-black p-5 shadow-2xl">
+                        <div class="font-display font-bold text-4xl leading-none">5.0</div>
+                        <div class="flex gap-0.5 mt-1">
+                            <i class="fa-solid fa-star text-black text-xs"></i>
+                            <i class="fa-solid fa-star text-black text-xs"></i>
+                            <i class="fa-solid fa-star text-black text-xs"></i>
+                            <i class="fa-solid fa-star text-black text-xs"></i>
+                            <i class="fa-solid fa-star text-black text-xs"></i>
+                        </div>
+                        <div class="font-display uppercase text-xs font-bold tracking-widest mt-1">Rating</div>
+                    </div>
+                    <div class="absolute -top-4 -right-4 w-24 h-24 border-2 border-gold/20 pointer-events-none"></div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div>
-                    <h4 class="font-display text-white uppercase tracking-widest font-bold mb-6 text-sm">Meny</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#services" class="hover:text-gold transition">Priser & Tjenester</a></li>
-                        <li><a href="#work" class="hover:text-gold transition">Galleri</a></li>
-                        <li><a href="#contact" class="hover:text-gold transition">Kontakt & Kart</a></li>
-                        <li><button data-cal-link="blezz-contact-i0li2v/30min" class="hover:text-gold transition">Book Time</button></li>
+    <!-- SERVICES -->
+    <section id="services" class="py-32 px-6 bg-[#060606] border-b border-white/5 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 text-center">
+                <div class="section-label justify-center">Tjenester & Priser</div>
+                <h2 class="font-display text-5xl md:text-6xl font-bold uppercase">Hva koster det? <span class="text-gold">.</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-panel p-10 border border-white/5 hover:border-gold/40 transition-all duration-300 group hover-lift" data-aos="fade-up">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 border border-white/10 flex items-center justify-center group-hover:border-gold/50 transition-colors">
+                            <i class="fa-solid fa-scissors text-2xl text-gold"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-display font-bold text-4xl">250,-</span>
+                            <p class="text-gray-600 text-xs font-display uppercase tracking-wider mt-1">inkl. vask</p>
+                        </div>
+                    </div>
+                    <h3 class="font-display text-3xl font-bold uppercase mb-3">Herreklipp</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Klassisk klipp eller skinfade, ferdig med konsultasjon, vask og styling.</p>
+                    <ul class="space-y-2 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Konsultasjon inkludert</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Vask & styling</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Skin fade eller klassisk</li>
                     </ul>
+                    <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="w-full border border-white/10 py-3 font-display font-bold uppercase tracking-widest text-sm hover:border-gold hover:text-gold transition-colors">Book Nå</button>
                 </div>
 
-                <div>
-                    <h4 class="font-display text-white uppercase tracking-widest font-bold mb-6 text-sm">Åpningstider</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex justify-between max-w-[150px]"><span>Man - Fre</span> <span class="text-white">10 - 18</span></li>
-                        <li class="flex justify-between max-w-[150px]"><span>Lørdag</span> <span class="text-white">10 - 16</span></li>
-                        <li class="flex justify-between max-w-[150px]"><span>Søndag</span> <span class="text-white">Stengt</span></li>
+                <div class="bg-panel p-10 border-2 border-gold relative overflow-hidden shadow-2xl shadow-gold/10 group hover-lift" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 bg-gold text-black text-xs font-bold px-4 py-2 uppercase font-display tracking-widest">Anbefalt</div>
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 border border-gold/30 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+                            <i class="fa-solid fa-crown text-2xl text-gold"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-display font-bold text-4xl">350,-</span>
+                            <p class="text-gray-600 text-xs font-display uppercase tracking-wider mt-1">full pakke</p>
+                        </div>
+                    </div>
+                    <h3 class="font-display text-3xl font-bold uppercase mb-3">Hår & Skjegg</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Den komplette pakken – full klipp kombinert med forming av skjegg og skarpe linjer.</p>
+                    <ul class="space-y-2 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Alt fra Herreklipp</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Skjeggforming</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Skarpe linjer</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-xs"></i> Premium finishing</li>
                     </ul>
+                    <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="w-full bg-gold text-black py-3 font-display font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors">Book Den Beste</button>
                 </div>
+            </div>
+            <p class="mt-8 text-center text-gray-600 text-sm font-display uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-gold/60"></i> Kun time-booking – ingen drop-ins
+            </p>
+        </div>
+    </section>
 
-                <div>
-                    <h4 class="font-display text-white uppercase tracking-widest font-bold mb-6 text-sm">Hold deg oppdatert</h4>
-                    <p class="text-xs mb-4">Få beskjed om ledige timer og tilbud.</p>
-                    <form onsubmit="event.preventDefault();" class="flex flex-col gap-3">
-                        <input type="email" placeholder="Din e-post" class="bg-white/5 border border-white/10 p-3 text-sm focus:border-gold outline-none text-white placeholder-gray-600">
-                        <button class="bg-white/10 text-white font-display uppercase text-xs font-bold py-3 hover:bg-gold hover:text-black transition-colors">Meld på</button>
+    <!-- GALLERY -->
+    <section id="work" class="py-24 border-t border-white/5 bg-dark overflow-hidden relative z-10">
+        <div class="max-w-7xl mx-auto px-6 mb-12">
+            <div class="section-label">Portfolio</div>
+            <h2 class="font-display text-5xl md:text-6xl font-bold uppercase">Galleri <span class="text-gold">.</span></h2>
+            <p class="text-gray-500 mt-2 text-sm">Hold over bildene for å se i farger</p>
+        </div>
+        <div class="work-wrapper">
+            <div class="work-track">
+                <div class="work-card"><img src="bilder/abdi.jpg"   onerror="this.src='bilder/abdi.JPG'" alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/musti.PNG"  alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/nicho.jpg"  alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/oliver.jpg" alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/abdi.jpg"   onerror="this.src='bilder/abdi.JPG'" alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/musti.PNG"  alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/nicho.jpg"  alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+                <div class="work-card"><img src="bilder/oliver.jpg" alt="Klipp av BlezzBarber" loading="lazy" decoding="async" width="380" height="520"></div>
+            </div>
+        </div>
+        <div class="text-center mt-10">
+            <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="inline-flex items-center gap-2 border border-white/10 font-display font-bold uppercase tracking-widest text-sm px-8 py-3 hover:border-gold hover:text-gold transition-colors">
+                <i class="fa-brands fa-tiktok"></i> Se Mer på TikTok
+            </a>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="py-24 bg-[#060606] overflow-hidden border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 mb-12">
+            <div class="section-label">Anmeldelser</div>
+            <h2 class="font-display text-4xl md:text-5xl font-bold uppercase">Hva kundene sier <span class="text-gold">.</span></h2>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="flex gap-1 text-gold text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <span class="text-gray-500 text-sm">5.0 gjennomsnitt</span>
+            </div>
+        </div>
+        <div class="reviews-wrapper">
+            <div class="reviews-track">
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Konge barber 👑 Beste klippen jeg har hatt i Drammen. Stikker alltid innom."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">L</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Liam S</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Sykt fornøyd med klippen. Han tar seg tid og gjør det ordentlig."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">A</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Anders</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Top notch, kommer garantert tilbake 💯 Faden sitter helt perfekt."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">H</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Henke</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Ble BleZZa 🫂 Anbefaler til alle som vil ha et skikkelig klipp."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">K</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Kunde</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Bra service og bra klipp – god pris for det du får. Klart anbefalt."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">A</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Abdiwasic</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Konge barber 👑 Beste klippen jeg har hatt i Drammen. Stikker alltid innom."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">L</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Liam S</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Sykt fornøyd med klippen. Han tar seg tid og gjør det ordentlig."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">A</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Anders</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Top notch, kommer garantert tilbake 💯 Faden sitter helt perfekt."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">H</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Henke</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Ble BleZZa 🫂 Anbefaler til alle som vil ha et skikkelig klipp."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">K</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Kunde</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+                <div class="review-card"><div class="flex gap-1 text-gold mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="text-gray-300 text-sm mb-5 leading-relaxed flex-1">"Bra service og bra klipp – god pris for det du får. Klart anbefalt."</p><div class="flex items-center gap-3 mt-auto"><div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm font-display">A</div><div><span class="font-display uppercase font-bold text-sm tracking-wider block">Abdiwasic</span><span class="text-gray-600 text-xs">Drammen</span></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-32 px-6 bg-dark border-t border-white/5 relative z-10">
+        <div class="max-w-3xl mx-auto">
+            <div class="mb-16 text-center">
+                <div class="section-label justify-center">FAQ</div>
+                <h2 class="font-display text-5xl md:text-6xl font-bold uppercase">Spørsmål? <span class="text-gold">.</span></h2>
+            </div>
+            <div data-aos="fade-up">
+                <div class="faq-item py-5">
+                    <button class="faq-btn w-full flex justify-between items-center text-left group">
+                        <span class="font-display font-bold uppercase tracking-wide text-base md:text-lg group-hover:text-gold transition-colors">Kan jeg bare stikke innom?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0 ml-4"></i>
+                    </button>
+                    <div class="faq-answer"><p class="text-gray-400 text-sm leading-relaxed pt-4 pb-2">Nei – kun kunder med forhåndsbestilt time. Dette sikrer full oppmerksomhet uten ventetid. Book via knappen på siden.</p></div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-btn w-full flex justify-between items-center text-left group">
+                        <span class="font-display font-bold uppercase tracking-wide text-base md:text-lg group-hover:text-gold transition-colors">Hvor lang tid tar en klipp?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0 ml-4"></i>
+                    </button>
+                    <div class="faq-answer"><p class="text-gray-400 text-sm leading-relaxed pt-4 pb-2">En vanlig herreklipp tar ca. 30 minutter. Hår & skjegg-pakken tar ca. 45–60 minutter.</p></div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-btn w-full flex justify-between items-center text-left group">
+                        <span class="font-display font-bold uppercase tracking-wide text-base md:text-lg group-hover:text-gold transition-colors">Hva er adressen?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0 ml-4"></i>
+                    </button>
+                    <div class="faq-answer"><p class="text-gray-400 text-sm leading-relaxed pt-4 pb-2">Cappelens gate 27, 3015 Drammen. Kart finner du i kontakt-seksjonen lenger ned.</p></div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-btn w-full flex justify-between items-center text-left group">
+                        <span class="font-display font-bold uppercase tracking-wide text-base md:text-lg group-hover:text-gold transition-colors">Hvordan avbestiller jeg?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0 ml-4"></i>
+                    </button>
+                    <div class="faq-answer"><p class="text-gray-400 text-sm leading-relaxed pt-4 pb-2">Via bekreftelsesmailen du får etter booking. Gi gjerne beskjed minst 24 timer i forveien.</p></div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-btn w-full flex justify-between items-center text-left group">
+                        <span class="font-display font-bold uppercase tracking-wide text-base md:text-lg group-hover:text-gold transition-colors">Hvilke betalingsmetoder godtas?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0 ml-4"></i>
+                    </button>
+                    <div class="faq-answer"><p class="text-gray-400 text-sm leading-relaxed pt-4 pb-2">Vipps og kontanter. Kortbetaling kan avtales på forhånd.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-32 px-6 bg-[#060606] border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <div class="section-label justify-center">Kontakt</div>
+                <h2 class="font-display text-5xl md:text-7xl font-bold uppercase mb-4">Ta Kontakt <span class="text-gold">.</span></h2>
+                <p class="text-gray-400 text-lg font-light max-w-xl mx-auto">Spørsmål om klipp, styling eller booking? Send meg en melding.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-panel p-8 md:p-12 border border-white/5 relative" data-aos="fade-right">
+                    <h3 class="font-display text-2xl font-bold uppercase mb-8 border-b border-white/10 pb-4">Send Melding</h3>
+                    <form id="blezz-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-5">
+                        <input type="hidden" name="access_key" value="e2820c81-5f07-434d-92df-8d2c6ab0e375">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+                        <div>
+                            <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">Ditt Navn</label>
+                            <input type="text" name="navn" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600 outline-none" placeholder="Ola Nordmann">
+                        </div>
+                        <div>
+                            <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">E-post</label>
+                            <input type="email" name="email" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600 outline-none" placeholder="ola@mail.no">
+                        </div>
+                        <div>
+                            <label class="block text-gold font-display uppercase tracking-wider text-xs mb-2">Melding</label>
+                            <textarea name="melding" rows="5" required class="w-full bg-dark border border-white/10 p-4 text-white focus:border-gold transition-colors placeholder-gray-600 resize-none outline-none" placeholder="Hva lurer du på?"></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="bg-gold text-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors mt-2">Send Melding</button>
                     </form>
+                    <div id="success-msg" class="hidden absolute inset-0 bg-panel flex-col items-center justify-center text-center p-8 z-20">
+                        <i class="fa-solid fa-check-circle text-gold text-6xl mb-6"></i>
+                        <h3 class="font-display text-3xl font-bold uppercase mb-2">Mottatt!</h3>
+                        <p class="text-gray-400">Jeg svarer deg så fort jeg legger ned saksen.</p>
+                        <button onclick="location.reload()" class="mt-8 text-sm text-gold hover:text-white uppercase tracking-widest font-bold underline">Send en til</button>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6" data-aos="fade-left">
+                    <div class="bg-panel p-8 border border-white/5">
+                        <h3 class="font-display text-xl font-bold uppercase mb-6 text-gold tracking-wider">Besøk Sjappa</h3>
+                        <div class="space-y-5 text-gray-300">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-gold/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-location-dot text-gold"></i></div>
+                                <div>
+                                    <strong class="block text-white font-display uppercase tracking-wide text-sm mb-1">Adresse</strong>
+                                    <span class="text-gray-400 text-sm">Cappelens gate 27, 3015 Drammen</span>
+                                    <span class="text-gold font-bold uppercase tracking-widest text-xs mt-2 block"><i class="fa-solid fa-ban text-xs mr-1"></i>Ingen drop-ins</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-gold/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-clock text-gold"></i></div>
+                                <div>
+                                    <strong class="block text-white font-display uppercase tracking-wide text-sm mb-2">Åpningstider</strong>
+                                    <div class="text-sm text-gray-400 space-y-1">
+                                        <div class="flex justify-between gap-8"><span>Man – Fre</span><span class="text-white font-medium">10:00 – 18:00</span></div>
+                                        <div class="flex justify-between gap-8"><span>Lørdag</span><span class="text-white font-medium">10:00 – 16:00</span></div>
+                                        <div class="flex justify-between gap-8"><span>Søndag</span><span class="text-red-500">Stengt</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-gold/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-envelope text-gold"></i></div>
+                                <div>
+                                    <strong class="block text-white font-display uppercase tracking-wide text-sm mb-1">E-post</strong>
+                                    <a href="mailto:blezzcontactnow@gmail.com" class="hover:text-gold transition text-sm text-gray-400">blezzcontactnow@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-64 w-full bg-[#111] border border-white/5 overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2005.123456789!2d10.2045!3d59.7439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46413cb000000001%3A0x0!2sCappelens+gate+27%2C+3015+Drammen!5e0!3m2!1sen!2sno!4v1234567890" width="100%" height="100%" style="border:0" class="map-dark-mode" allowfullscreen loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="border-t border-white/5 pt-8 text-center md:text-left px-6 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 uppercase tracking-wider font-bold">
-                <p>© 2026 BLEZZBARBER. Alle rettigheter reservert.</p>
-                <p>Designet & Utviklet av <a href="https://indexdevelopment.no" class="text-gold hover:underline">Index Development</a></p>
+    <!-- CTA BANNER -->
+    <section class="bg-gold text-black py-24 px-6 text-center relative z-10 overflow-hidden">
+        <div class="absolute inset-0 opacity-5 pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-4 border-black rounded-full"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border-2 border-black rounded-full"></div>
+        </div>
+        <div class="max-w-3xl mx-auto relative" data-aos="zoom-in">
+            <p class="font-display text-sm uppercase tracking-[0.3em] font-bold mb-4 opacity-60">Klar for en oppgradering?</p>
+            <h2 class="font-display text-6xl md:text-9xl font-bold uppercase mb-8 tracking-tight leading-none">Get Blezz'd</h2>
+            <p class="text-black/70 text-lg font-medium mb-10 max-w-md mx-auto">Finn en tid som passer deg. Booking tar under ett minutt.</p>
+            <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-black text-white px-12 py-5 font-display font-bold uppercase tracking-widest text-lg hover:bg-dark hover:scale-105 transition-all shadow-2xl inline-flex items-center gap-3">
+                <i class="fa-solid fa-calendar-check"></i> Åpne Booking
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#080808] pt-20 pb-10 border-t border-white/5 text-gray-400 font-light relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+            <div class="col-span-2 md:col-span-1 space-y-5">
+                <img src="bilder/blezz.PNG" alt="BlezzBarber" class="h-12 w-auto opacity-80" width="200" height="48" loading="lazy">
+                <p class="text-sm leading-relaxed max-w-xs text-gray-500">Drammens skarpeste barber. Fokus på kvalitet, presisjon og god stemning.</p>
+                <div class="flex gap-3 pt-1">
+                    <a href="https://tiktok.com/@blezzbarber_" target="_blank" class="w-10 h-10 bg-white/5 flex items-center justify-center hover:bg-gold hover:text-black transition-all"><i class="fa-brands fa-tiktok text-sm"></i></a>
+                </div>
             </div>
-        </footer>
+            <div>
+                <h4 class="font-display text-white uppercase tracking-widest font-bold mb-5 text-xs">Meny</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li><a href="#om-meg"   class="hover:text-gold transition">Om Meg</a></li>
+                    <li><a href="#services" class="hover:text-gold transition">Priser</a></li>
+                    <li><a href="#work"     class="hover:text-gold transition">Galleri</a></li>
+                    <li><a href="#contact"  class="hover:text-gold transition">Kontakt</a></li>
+                    <li><button data-cal-link="blezz-contact-i0li2v/30min" class="hover:text-gold transition">Book Time</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display text-white uppercase tracking-widest font-bold mb-5 text-xs">Åpningstider</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li class="flex justify-between max-w-[160px]"><span>Man - Fre</span><span class="text-white">10–18</span></li>
+                    <li class="flex justify-between max-w-[160px]"><span>Lørdag</span><span class="text-white">10–16</span></li>
+                    <li class="flex justify-between max-w-[160px]"><span>Søndag</span><span class="text-red-500">Stengt</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display text-white uppercase tracking-widest font-bold mb-5 text-xs">Hold deg oppdatert</h4>
+                <p class="text-xs mb-4 text-gray-600">Få beskjed om ledige timer og tilbud.</p>
+                <form onsubmit="event.preventDefault()" class="flex flex-col gap-2">
+                    <input type="email" placeholder="Din e-post" class="bg-white/5 border border-white/10 p-3 text-sm focus:border-gold outline-none text-white placeholder-gray-600">
+                    <button class="bg-white/10 text-white font-display uppercase text-xs font-bold py-3 hover:bg-gold hover:text-black transition-colors">Meld på</button>
+                </form>
+            </div>
+        </div>
+        <div class="border-t border-white/5 pt-8 px-6 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 uppercase tracking-wider font-bold">
+            <p>© 2026 BLEZZBARBER. Alle rettigheter reservert.</p>
+            <p>Designet & Utviklet av <a href="https://indexdevelopment.no" class="text-gold hover:underline">Index Development</a></p>
+        </div>
+    </footer>
+</main>
 
-    </main>
+<!-- FLOATING MOBILE BOOK BUTTON -->
+<div id="float-book" style="opacity:0;pointer-events:none;transition:opacity 0.3s ease">
+    <button data-cal-link="blezz-contact-i0li2v/30min" data-cal-config='{"layout":"month_view"}' class="bg-gold text-black font-display font-bold uppercase tracking-widest px-8 py-3.5 shadow-2xl shadow-gold/40 hover:bg-white transition-colors flex items-center gap-2">
+        <i class="fa-solid fa-calendar-check"></i> Book Nå
+    </button>
+</div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
+<!-- Cal.com (deferred to end of body) -->
+<script>
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, arguments) : p(cal, arguments); return api; } p(cal, arguments); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", {origin:"https://cal.com"});
+  Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#EDBE47"}},"hideEventTypeDetails":false,"layout":"month_view"});
+</script>
 
-        // SKJEMA LOGIKK
-        const form = document.getElementById('blezz-form');
-        const successMsg = document.getElementById('success-msg');
-        const submitBtn = document.getElementById('submit-btn');
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 900, once: true, offset: 60 });
 
-        if(form){
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SENDER...';
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50');
+    // Progress bar
+    window.addEventListener('scroll', () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('progress-bar').style.width = `${(window.scrollY / total) * 100}%`;
+    });
 
-                const formData = new FormData(form);
-                const object = Object.fromEntries(formData);
-                const json = JSON.stringify(object);
+    // Nav background on scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: json
-                })
-                .then(async (response) => {
-                    if (response.status == 200) {
-                        form.style.display = "none";
-                        successMsg.classList.remove("hidden");
-                    } else {
-                        submitBtn.innerHTML = "FEIL. PRØV IGJEN.";
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('opacity-50');
-                    }
-                })
-                .catch(error => {
-                    submitBtn.innerHTML = "NOE GIKK GALT.";
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50');
-                });
-            });
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let menuOpen = false;
+
+    function toggleMenu(open) {
+        menuOpen = open;
+        mobileMenu.classList.toggle('menu-open', open);
+        mobileMenu.classList.toggle('menu-closed', !open);
+        const [l1, l2, l3] = hamburger.querySelectorAll('.ham-line');
+        if (open) {
+            l1.style.transform = 'translateY(8px) rotate(45deg)';
+            l2.style.opacity = '0';
+            l3.style.transform = 'translateY(-8px) rotate(-45deg)';
+            l3.style.width = '24px';
+        } else {
+            l1.style.transform = l2.style.opacity = l3.style.transform = '';
+            l3.style.width = '';
         }
-    </script>
+    }
+    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
+    mobileLinks.forEach(l => l.addEventListener('click', () => toggleMenu(false)));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            const icon   = btn.querySelector('.faq-icon');
+            const isOpen = answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer.open').forEach(el => {
+                el.classList.remove('open');
+                el.previousElementSibling.querySelector('.faq-icon').classList.remove('rotated');
+            });
+            if (!isOpen) { answer.classList.add('open'); icon.classList.add('rotated'); }
+        });
+    });
+
+    // Contact form
+    const form       = document.getElementById('blezz-form');
+    const successMsg = document.getElementById('success-msg');
+    const submitBtn  = document.getElementById('submit-btn');
+    if (form) {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SENDER...';
+            submitBtn.disabled  = true;
+            submitBtn.classList.add('opacity-50');
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            }).then(r => {
+                if (r.status === 200) {
+                    form.style.display = 'none';
+                    successMsg.classList.remove('hidden');
+                    successMsg.style.display = 'flex';
+                } else {
+                    submitBtn.innerHTML = 'FEIL. PRØV IGJEN.';
+                    submitBtn.disabled  = false;
+                    submitBtn.classList.remove('opacity-50');
+                }
+            }).catch(() => {
+                submitBtn.innerHTML = 'NOE GIKK GALT.';
+                submitBtn.disabled  = false;
+                submitBtn.classList.remove('opacity-50');
+            });
+        });
+    }
+
+    // Floating book button: hide while hero is visible
+    const floatBook = document.getElementById('float-book');
+    const hero      = document.getElementById('hero');
+    if (hero && floatBook) {
+        new IntersectionObserver(([e]) => {
+            floatBook.style.opacity       = e.isIntersecting ? '0' : '1';
+            floatBook.style.pointerEvents = e.isIntersecting ? 'none' : 'all';
+        }, { threshold: 0.3 }).observe(hero);
+    }
+</script>
 </body>
 </html>
